@@ -1,0 +1,13 @@
+lib
+include
+include/*
+lib/*
+*.o
+*.a
+.DS_Store
+guimp
+*.swp
+*/*.a
+old_main.c
+images/
+*.xcf

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:29:01 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 15:58:49 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 16:34:28 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static inline void	layer_background(t_info *info)
 	*/
 }
 
-static inline void	layer_create(t_info *info)
+static inline void	layer_create_old(t_info *info)
 {
-	int		i;
 	t_xywh	coord;
 
 	/*
+	int		i;
 	i = -1;
 	while (++i < LAYER_NBR)
 	{
@@ -47,6 +47,7 @@ static inline void	layer_create(t_info *info)
 		info->layer_buttons[i]->f = &ft_toggle_elem_group;
 		info->layer_buttons[i]->extra_info = info->layer_buttons;
 		((t_button *)info->layer_buttons[i]->info)->extra = &info->layer_amount;
+
 		coord = ui_init_coords(10, 10, info->layer_buttons[i]->surface->w - 20,
 				info->layer_buttons[i]->surface->h - 20);
 		info->layer_layers[i] = ui_create_surface(info->layers->window,
@@ -56,12 +57,37 @@ static inline void	layer_create(t_info *info)
 	*/
 }
 
+void	layer_create(t_bui_element *parent, t_list **list, int count)
+{
+	t_layer *layer;
+	t_xywh coord;
+
+	layer = malloc(sizeof(t_layer));
+
+	coord = ui_init_coords(50, count * 200 + (count * 25) + 25, parent->position.w - 100, 200);
+	layer->button = bui_new_element(parent, NULL, coord);
+	bui_set_element_color(layer->button, 0xff00ff00);
+
+	coord = ui_init_coords(10, 10, layer->button->position.w - 20, layer->button->position.h - 20);
+	layer->element = bui_new_element(layer->button, NULL, coord);
+
+//	shadow(layer->element);
+//	shadow(layer->button);
+
+	add_to_list(list, layer, sizeof(t_layer));
+}
+
 void				layer_init(t_info *info)
 {
 	t_xywh	coord;
 
 	coord = ui_init_coords(275, 50, 100, 100);
 	info->brush_color = bui_new_element(info->col_menu, NULL, coord);
+
+	info->all_layers = NULL;
+	info->layer_amount = 0;	
+
+	layer_create(info->layer_menu, &info->all_layers, info->layer_amount++);
 	/*
 	coord = ui_init_coords(0, 0,
 		info->main->window->surface->w, info->main->window->surface->h);

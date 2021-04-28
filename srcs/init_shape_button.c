@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 16:55:56 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 13:04:51 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 12:00:48 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 static inline void	orb(t_info *info)
 {
+	t_xywh coord;
+
+	coord = ui_init_coords(25, 25, 100, 50);
+	info->shapes[0] = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->shapes[0], ELEMENT_ALL, info->shape_img.orb);
 	/* TODO:	
 	info->shapes[0] = ui_create_button(info->toolbox->window,
 			ui_init_coords(25, 25, 100, 50), info->shape_menu);
@@ -23,6 +28,11 @@ static inline void	orb(t_info *info)
 
 static inline void	square(t_info *info)
 {
+	t_xywh coord;
+
+	coord = ui_init_coords(150, 25, 100, 50);
+	info->shapes[1] = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->shapes[1], ELEMENT_ALL, info->shape_img.square);
 	/* TODO:	
 	info->shapes[1] = ui_create_button(info->toolbox->window,
 			ui_init_coords(150, 25, 100, 50), info->shape_menu);
@@ -32,6 +42,11 @@ static inline void	square(t_info *info)
 
 static inline void	tube(t_info *info)
 {
+	t_xywh coord;
+
+	coord = ui_init_coords(275, 25, 100, 50);
+	info->shapes[2] = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->shapes[2], ELEMENT_ALL, info->shape_img.tube);
 	/* TODO:	
 	info->shapes[2] = ui_create_button(info->toolbox->window,
 			ui_init_coords(275, 25, 100, 50), info->shape_menu);

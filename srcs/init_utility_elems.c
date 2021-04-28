@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:51:33 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 13:17:23 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 13:24:46 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ static inline void	save_button(t_info *info, t_bui_element *menu)
 {
 	t_xywh		coord;
 
+	coord = ui_init_coords(25, 25, 100, 50);
+	info->save_button = bui_new_element(menu, "Save", coord);
+	bui_set_element_color(info->save_button, 0xffffffff);
+	bui_set_element_text_font(info->save_button, "DroidSans.ttf", 20, 0xff000000);
 	/*
 	coord = ui_init_coords(25, 25, 100, 50);
 	info->save_button = ui_create_button(info->toolbox->window,
@@ -31,6 +35,10 @@ static inline void	new_layer_button(t_info *info, t_bui_element *menu)
 {
 	t_xywh		coord;
 
+	coord = ui_init_coords(150, 25, 100, 50);
+	info->new_layer_button = bui_new_element(menu, "New Layer", coord);
+	bui_set_element_color(info->new_layer_button, 0xffffffff);
+	bui_set_element_text_font(info->new_layer_button, "DroidSans.ttf", 20, 0xff000000);
 	/*
 	coord = ui_init_coords(150, 25, 100, 50);
 	info->new_layer_button = ui_create_button(info->toolbox->window,
@@ -46,6 +54,10 @@ static inline void	text_input_area(t_info *info)
 {
 	t_xywh		coord;
 
+	coord = ui_init_coords(40, 900, 400, 50);
+	info->text_area = bui_new_menu(info->toolbox, "Print Text", coord);
+	bui_set_element_color(info->text_area, 0xffffffff);
+	bui_set_element_text_font(info->text_area, "DroidSans.ttf", 20, 0xff000000);
 	/*
 	coord = ui_init_coords(40, 900, 400, 50);
 	info->text_area = ui_create_button(info->toolbox->window,
@@ -61,6 +73,10 @@ static inline void	clear_workspace_button(t_info *info)
 {
 	t_xywh		coord;
 
+	coord = ui_init_coords(40, 975, 100, 50);
+	info->clear_workspace = bui_new_menu(info->toolbox, "Clear", coord);
+	bui_set_element_color(info->clear_workspace, 0xffffffff);
+	bui_set_element_text_font(info->clear_workspace, "DroidSans.ttf", 20, 0xff000000);
 	/*
 	coord = ui_init_coords(40, 975, 100, 50);
 	info->clear_workspace = ui_create_button(info->toolbox->window,
@@ -76,6 +92,10 @@ static inline void	open_file_button(t_info *info)
 {
 	t_xywh		coord;
 
+	coord = ui_init_coords(165, 975, 100, 50);
+	info->open_file = bui_new_menu(info->toolbox, "Open", coord);
+	bui_set_element_color(info->open_file, 0xffffffff);
+	bui_set_element_text_font(info->open_file, "DroidSans.ttf", 20, 0xff000000);
 	/*
 	coord = ui_init_coords(165, 975, 100, 50);
 	info->clear_workspace = ui_create_button(info->toolbox->window,
@@ -91,9 +111,18 @@ static inline void	open_file_button(t_info *info)
 void				utility_init(t_info *info)
 {
 	t_xywh		coord;
+
+	text_input_area(info);
+	clear_workspace_button(info);
+	open_file_button(info);
+
+	coord = ui_init_coords(25, info->toolbox->position.h - 125, 275, 100);
+	info->utility_menu = bui_new_menu(info->toolbox, "Utility", coord);
+	save_button(info, info->utility_menu);
+	new_layer_button(info, info->utility_menu);
+	/*
 	t_bui_element	*menu;
 
-	/*
 	coord = ui_init_coords(25,
 			info->toolbox->window->surface->h - 125, 275, 100);
 	menu = ui_create_surface(info->toolbox->window, coord, NULL);

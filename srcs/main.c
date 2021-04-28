@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 13:07:25 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 16:15:44 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 16:36:58 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ static inline void	guimp_init(t_info *info, t_bui_libui *libui)
 
 	slider_init(info);
 	init_brush(info);
-	layer_init(info);
 	sticker_load(info);
 	drop_down_init(info);
 
-	/* NOTE: dont remove comment, just yank the line you want to call
+	shape_load(info);
+	shape_buttons_init(info);
+
+	utility_init(info);
+
+	layer_init(info);
+
+	bui_set_window_icon(info->main, "resources/stickers/gimp-icon.png");
+	/* NOTE: dont remove comment, just yank the line you want to callkk
 	init_brush(info);
 	tooltips_load(info);
 	shape_load(info);
@@ -57,19 +64,81 @@ static inline void	guimp_init(t_info *info, t_bui_libui *libui)
 	*/
 }
 
+void	shadow(t_bui_element *elem)
+{
+	t_xywh coord;
+
+	coord = elem->position;
+	if (elem->type == TYPE_ELEMENT)
+	{
+		SDL_FillRect(((t_bui_element *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
+		/*
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[0], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[0], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[1], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[1], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[2], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_element *)elem->parent)->surface[2], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
+		*/
+	}
+	else
+	{
+		SDL_FillRect(((t_bui_window *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
+		SDL_FillRect(((t_bui_window *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
+	}
+}
+typedef	struct		s_fps
+{
+	float		curr;
+	float		prev;
+	float		avg;
+	int		fps;
+	int		count;
+	// Delta
+	float		delta_curr;
+	float		delta_last;
+	float		delta;
+}					t_fps;
+
+void	fps_func(t_fps *fps)
+{
+	fps->curr = SDL_GetTicks();
+	fps->count++;
+	if (fps->curr - fps->prev >= 1000)
+	{
+		fps->prev = fps->curr;
+		fps->fps = fps->count;
+		fps->count = 0;
+		ft_putnbr(fps->fps);
+		ft_putchar('\n');
+	}
+}
+
 int					fake_main(void)
 {
 	t_info		*info;
 	t_bui_libui	*libui;
+	t_fps *fps = malloc(sizeof(t_fps));
 
 	if (!(info = (t_info *)malloc(sizeof(t_info))))
 		return (0);
 	libui = bui_new_libui();
 	guimp_init(info, libui);
-	//prefab_demo(info);
+	//prefab_demo(info); //NOTE:the only reason this function was done is so that we would have prefabs in the libui.
 	while (libui->run)
 	{
-		bui_render_the_event(libui);
+		fps_func(fps);
+		bui_event_handler_new(libui);
+		//bui_render_the_event(libui);
+/*
+		t_list *curr;
+		curr = libui->elements;
+		while (curr)
+		{
+			curr = curr->next;	
+		}
+		*/
 		/*
 		drag_drop(info, libui);
 		update_brush(info);
@@ -87,7 +156,15 @@ int					fake_main(void)
 		preset_dropdown_events(info->drop_down);
 		preset_dropdown_events(info->font_down);
 
+		bui_input(info->text_area);
+
 		update_brush(info);
+
+		shadow(((t_layer *)info->all_layers->content)->element);
+		shadow(((t_layer *)info->all_layers->content)->button);
+		shadow(info->clear_workspace);
+
+		bui_render_new(libui);
 	}
 	//guimp_quit(info);
 	//bui_libui_quit(libui);

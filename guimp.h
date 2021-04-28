@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:01:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 16:12:51 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 15:55:37 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ typedef struct	s_shape_img
 	SDL_Surface *tube;
 }				t_shape_img;
 
+typedef struct	s_layer
+{
+	t_bui_element *button;
+	t_bui_element *element;
+}				t_layer;
+
 typedef struct	s_info
 {
 	int			run;
@@ -92,10 +98,13 @@ typedef struct	s_info
 	t_bui_element	*buttons[8];
 	int			shapes_nbr;
 	t_bui_element	*shapes[3];
+
+	t_bui_element	*utility_menu;
 	t_bui_element	*text_area;
 	t_bui_element	*save_button;
 	t_bui_element	*new_layer_button;
 	t_bui_element	*clear_workspace;
+	t_bui_element	*open_file;
 	t_bui_element	*font_button;
 
 	t_preset_dropdown *drop_down;
@@ -106,14 +115,25 @@ typedef struct	s_info
 	t_bui_element	*brush_menu;
 	t_bui_element	*col_menu;
 	t_bui_element	*shape_menu;
-	int			layer_amount;
 	t_bui_element	*drawing_surface[5];
 	t_bui_element	*screen_surface;
 	t_bui_element	*hidden_surface;
+	
+	/////////////////////////
+	// Layer Window Elements
+	/////////////////////////
 	t_bui_element	*layer_menu;
 	t_bui_element	*layer_layers[5];
 	t_bui_element	*layer_buttons[5];
+
+	// New
+	int			layer_amount;
+	t_list	*all_layers; // list of t_layer *
 }				t_info;
+// New
+void	layer_create(t_bui_element *parent, t_list **list, int count);
+void	shadow(t_bui_element *elem);
+//
 
 int				load_font(char *file, TTF_Font *font);
 void			event_handler(t_info *info);
@@ -139,7 +159,7 @@ void			window_init(t_bui_libui *libui, t_info *info);
 void			ft_toggle_elem_group(SDL_Event e, t_bui_element *elem);
 void			utility_init(t_info *info);
 void			save_img(SDL_Event e, t_bui_element *elem);
-void			add_new_layer(SDL_Event e, t_bui_element *elem);
+void			add_new_layer_event(SDL_Event e, t_bui_element *elem);
 void			reset_workspace(SDL_Event e, t_bui_element *elem);
 void			open_button(SDL_Event e, t_bui_element *elem);
 void			init_brush(t_info *info);

@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 18:01:56 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 12:58:12 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/28 14:08:55 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../guimp.h"
 
-void	add_new_layer(SDL_Event e, t_bui_element *elem)
+void	add_new_layer_event(SDL_Event e, t_bui_element *elem)
 {
 	t_xywh		coords;
 	int			*layer_amount;

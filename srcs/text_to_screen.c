@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:57:52 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 12:46:22 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 15:10:01 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	text_to_screen(SDL_Surface *surface, t_shapes l,
 	SDL_Rect	temp;
 	SDL_Surface *surf;
 	TTF_Font	*font;
+	t_rgba color;
 
+	color = hex_to_rgba(l.color);
 	font = TTF_OpenFont(font_dir, l.size);
-	surf = TTF_RenderText_Blended(font, str, (SDL_Color) {25, 25, 25, 25 });
-								// TODO : hex_to_rgba(l.color));
+	surf = TTF_RenderText_Blended(font, str, (SDL_Color) {color.r, color.g, color.b, color.a});
 	temp.w = surf->w;
 	temp.h = surf->h;
 	temp.x = l.x1 - (temp.w / 2);

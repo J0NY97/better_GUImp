@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 16:02:35 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 13:48:36 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 17:09:33 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static inline void	coord_position(t_info *info, t_shapes *l)
 {
 	float		w;
 	float		h;
-	/*
 
 	w = ((float)info->drawing_surface[0]->active_surface->w /
 			(float)info->screen_surface->active_surface->w);
@@ -26,14 +25,12 @@ static inline void	coord_position(t_info *info, t_shapes *l)
 	l->y1 = info->brush.shape.y1 / h + info->screen_surface->position.y;
 	l->x2 = info->brush.shape.x2 / w + info->screen_surface->position.x;
 	l->y2 = info->brush.shape.y2 / h + info->screen_surface->position.y;
-	*/
 }
 
 void				trace_shape(t_info *info)
 {
 	t_shapes	l;
 
-	/*
 	if (info->brush.shape.x2 != -1 && info->brush.shape.y2 != -1)
 	{
 		l = info->brush.shape;
@@ -41,24 +38,22 @@ void				trace_shape(t_info *info)
 		if (info->brush.shape_type == 1)
 		{
 			l.size = POS(l.y1 - l.y2) + POS(l.x1 - l.x2);
-			ft_create_circle(info->hidden_surface->surface,
+			ft_create_circle(info->hidden_surface->active_surface,
 					info->brush.color, l);
 		}
 		else if (info->brush.shape_type == 2)
-			ft_create_square(info->hidden_surface->surface,
+			ft_create_square(info->hidden_surface->active_surface,
 					info->brush.color, l);
 		else if (info->brush.shape_type == 3)
-			ft_create_line(info->hidden_surface->surface,
+			ft_create_line(info->hidden_surface->active_surface,
 					info->brush.color, l);
 	}
-	*/
 }
 
 void				select_shape(SDL_Surface *surf, t_brush *brush)
 {
 	t_shapes *l;
 
-	/*
 	l = &brush->shape;
 	if (l->x2 != -1 && l->y2 != -1)
 	{
@@ -73,5 +68,4 @@ void				select_shape(SDL_Surface *surf, t_brush *brush)
 		brush->shape.x2 = brush->shape.x1;
 		brush->shape.y2 = brush->shape.y1;
 	}
-	*/
 }

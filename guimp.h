@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:01:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 15:55:37 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 17:04:09 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct	s_layer
 {
 	t_bui_element *button;
 	t_bui_element *element;
+	t_bui_element *drawing;
 }				t_layer;
 
 typedef struct	s_info
@@ -95,9 +96,25 @@ typedef struct	s_info
 	*/
 	t_bui_element	*brush_color;
 	int			brush_button_amount;
-	t_bui_element	*buttons[8];
+
+	t_bui_element *active_tool_button;
+	t_list *buttons;
+	t_bui_element *pencil_button;
+	t_bui_element *text_button;
+	t_bui_element *deletion_button;
+	t_bui_element *flood_button;
+	t_bui_element *sticker_button;
+	t_bui_element *move_button;
+	t_bui_element *shape_button;
+	t_bui_element *pipette_button;
+	//t_bui_element	*buttons[8];
 	int			shapes_nbr;
-	t_bui_element	*shapes[3];
+	t_list *shapes;
+	t_bui_element *active_shape;
+	t_bui_element *orb_shape;
+	t_bui_element *square_shape;
+	t_bui_element *tube_shape;
+	//t_bui_element	*shapes[3];
 
 	t_bui_element	*utility_menu;
 	t_bui_element	*text_area;
@@ -128,16 +145,24 @@ typedef struct	s_info
 
 	// New
 	int			layer_amount;
+	t_bui_element *active_layer;
+	t_list *all_layer_buttons; // list of t_bui_element *
 	t_list	*all_layers; // list of t_layer *
 }				t_info;
 // New
-void	layer_create(t_bui_element *parent, t_list **list, int count);
+void	layer_create(t_info *info, t_bui_element *parent, t_list **list, int count);
 void	shadow(t_bui_element *elem);
+void	draw(t_bui_libui *libui, t_info *info);
+t_bui_element *get_from_layers_with_id(t_list *list, char *id);
+void	reverse_list(t_list **list);
+Uint32	get_color(SDL_Surface *surface, int x, int y);
+void	flood_fill(SDL_Surface *surface, Uint32 targetColor, Uint32 replaceColor, int x, int y);
+void	ft_create_square(SDL_Surface *surface, Uint32 color, t_shapes l);
 //
 
 int				load_font(char *file, TTF_Font *font);
 void			event_handler(t_info *info);
-void			draw(SDL_Event event, t_bui_element *elem);
+void			draw_old(SDL_Event event, t_bui_element *elem);
 void			text_to_screen(SDL_Surface *surface,
 					t_shapes l, char *str, char *font_dir);
 void			zoom_and_move(t_bui_element *elem,

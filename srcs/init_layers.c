@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:29:01 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 16:34:28 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 16:45:57 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 static inline void	layer_background(t_info *info)
 {
-	int		i;
 	t_xywh	coord;
+	int i = 0;
 
+	coord = ui_init_coords(51, 50,
+		info->main->position.w - 100,
+		info->main->position.h - 100);
+	info->drawing_surface[0] = bui_new_menu(info->main, NULL, coord);
+	bui_set_element_color(info->drawing_surface[i], 0x00ffffff);
+	info->drawing_surface[0]->update = 0;
 	/*
+	t_xywh	coord;
+	int		i;
 	coord = ui_init_coords(51, 50,
 		info->main->window->surface->w - 100,
 		info->main->window->surface->h - 100);
@@ -57,7 +65,7 @@ static inline void	layer_create_old(t_info *info)
 	*/
 }
 
-void	layer_create(t_bui_element *parent, t_list **list, int count)
+void	layer_create(t_info *info, t_bui_element *parent, t_list **list, int count)
 {
 	t_layer *layer;
 	t_xywh coord;
@@ -71,10 +79,36 @@ void	layer_create(t_bui_element *parent, t_list **list, int count)
 	coord = ui_init_coords(10, 10, layer->button->position.w - 20, layer->button->position.h - 20);
 	layer->element = bui_new_element(layer->button, NULL, coord);
 
-//	shadow(layer->element);
-//	shadow(layer->button);
+	coord = ui_init_coords(0, 0, info->screen_surface->position.w, info->screen_surface->position.h);
+	layer->drawing = bui_new_element(info->screen_surface, NULL, coord);
+	SDL_FillRect(layer->drawing->active_surface,
+			&(SDL_Rect) {0, 0, layer->drawing->position.w, layer->drawing->position.h}, 0x00ffffff);
+	layer->drawing->update = 0;
+
+
+	char *id = ft_sprintf("layer%d", count);
+	bui_set_element_id(layer->button, id);
+	bui_set_element_id(layer->element, id);
+	ft_strdel(&id);
+
 
 	add_to_list(list, layer, sizeof(t_layer));
+	add_to_list(&info->all_layer_buttons, layer->button, sizeof(t_bui_element));
+}
+
+void	reverse_list(t_list **list)
+{
+	t_list *prev = NULL;
+	t_list *current = *list;
+	t_list *next = NULL;
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	*list = prev;
 }
 
 void				layer_init(t_info *info)
@@ -84,10 +118,36 @@ void				layer_init(t_info *info)
 	coord = ui_init_coords(275, 50, 100, 100);
 	info->brush_color = bui_new_element(info->col_menu, NULL, coord);
 
+	// Hidden Surface
+	coord = ui_init_coords(0, 0,
+		info->main->position.w, info->main->position.h);
+	info->hidden_surface = bui_new_menu(info->main, NULL, coord);
+	info->hidden_surface->update = 0;
+	bui_set_element_color(info->hidden_surface, 0x00000000);
+
+	// Screen Surface
+	coord = ui_init_coords(51, 50,
+		info->main->position.w - 100,
+		info->main->position.h - 100);
+	info->screen_surface = bui_new_menu(info->main, NULL, coord);
+	info->screen_surface->update = 1;
+	bui_set_element_color(info->screen_surface, 0xffffffff);
+
+	// Layer Stuff
+	info->all_layer_buttons = NULL;
 	info->all_layers = NULL;
 	info->layer_amount = 0;	
 
-	layer_create(info->layer_menu, &info->all_layers, info->layer_amount++);
+	layer_create(info, info->layer_menu, &info->all_layers, info->layer_amount++);
+	t_bui_element *drawing = ((t_layer *)info->all_layers->content)->drawing;
+	info->active_layer = ((t_layer *)info->all_layers->content)->button;
+
+	// Actual Layer Surfaces
+	/*
+	layer_background(info);
+	bui_set_element_color(info->drawing_surface[0], 0xffffffff);
+	*/
+
 	/*
 	coord = ui_init_coords(0, 0,
 		info->main->window->surface->w, info->main->window->surface->h);

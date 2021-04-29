@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 15:42:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 10:54:56 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 11:45:02 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ static inline void	drop_down_sticker(t_info *info)
 
 
 	preset_dropdown_add_element(info->drop_down, "Minion");
+	bui_set_element_id(info->drop_down->elements->content, "sticker0");
 	bui_set_element_color(info->drop_down->elements->content, 0xffffffff);
 	bui_set_element_image(info->drop_down->elements->content, ELEMENT_ALL, info->brush.stickers[0]);
 
 	preset_dropdown_add_element(info->drop_down, "Guimp-icon");
+	bui_set_element_id(info->drop_down->elements->content, "sticker1");
 	bui_set_element_color(info->drop_down->elements->content, 0xffffffff);
 	bui_set_element_image(info->drop_down->elements->content, ELEMENT_ALL, info->brush.stickers[1]);
 	/*

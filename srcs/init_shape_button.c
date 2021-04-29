@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 16:55:56 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 12:00:48 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 11:53:01 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static inline void	orb(t_info *info)
 	t_xywh coord;
 
 	coord = ui_init_coords(25, 25, 100, 50);
-	info->shapes[0] = bui_new_element(info->shape_menu, NULL, coord);
-	bui_set_element_image(info->shapes[0], ELEMENT_ALL, info->shape_img.orb);
+	info->orb_shape = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->orb_shape, ELEMENT_ALL, info->shape_img.orb);
+	add_to_list(&info->shapes, info->orb_shape, sizeof(t_bui_element));
 	/* TODO:	
 	info->shapes[0] = ui_create_button(info->toolbox->window,
 			ui_init_coords(25, 25, 100, 50), info->shape_menu);
@@ -31,8 +32,9 @@ static inline void	square(t_info *info)
 	t_xywh coord;
 
 	coord = ui_init_coords(150, 25, 100, 50);
-	info->shapes[1] = bui_new_element(info->shape_menu, NULL, coord);
-	bui_set_element_image(info->shapes[1], ELEMENT_ALL, info->shape_img.square);
+	info->square_shape = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->square_shape, ELEMENT_ALL, info->shape_img.square);
+	add_to_list(&info->shapes, info->square_shape, sizeof(t_bui_element));
 	/* TODO:	
 	info->shapes[1] = ui_create_button(info->toolbox->window,
 			ui_init_coords(150, 25, 100, 50), info->shape_menu);
@@ -45,8 +47,9 @@ static inline void	tube(t_info *info)
 	t_xywh coord;
 
 	coord = ui_init_coords(275, 25, 100, 50);
-	info->shapes[2] = bui_new_element(info->shape_menu, NULL, coord);
-	bui_set_element_image(info->shapes[2], ELEMENT_ALL, info->shape_img.tube);
+	info->tube_shape = bui_new_element(info->shape_menu, NULL, coord);
+	bui_set_element_image(info->tube_shape, ELEMENT_ALL, info->shape_img.tube);
+	add_to_list(&info->shapes, info->tube_shape, sizeof(t_bui_element));
 	/* TODO:	
 	info->shapes[2] = ui_create_button(info->toolbox->window,
 			ui_init_coords(275, 25, 100, 50), info->shape_menu);
@@ -56,15 +59,17 @@ static inline void	tube(t_info *info)
 
 void	shape_buttons_init(t_info *info)
 {
-	int		i;
-
-	i = -1;
+	info->active_shape = NULL;
+	info->shapes = NULL;
 	orb(info);
 	square(info);
 	tube(info);
 	// TODO : info->shapes[0]->default_state = 1;
-	info->shapes_nbr = 3;
 		/*
+	int		i;
+
+	i = -1;
+	info->shapes_nbr = 3;
 	while (++i < info->shapes_nbr)
 	{
 		info->shapes[i]->f = &ft_toggle_elem_group;

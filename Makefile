@@ -24,6 +24,8 @@ SRC	=	main.c \
 		init_brush.c \
 		update_hidden_surface.c \
 		update_brush.c \
+		flood_fill.c \
+		ft_create_square.c \
 		update_layers.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SRC))

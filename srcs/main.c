@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 13:07:25 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 16:36:58 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 16:04:47 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ static inline void	guimp_init(t_info *info, t_bui_libui *libui)
 	menu_init(info);
 
 	tooltips_load(info);
+		ft_putstr("1");
 	tool_buttons_init(info);
+		ft_putstr("2");
 
 	slider_init(info);
 	init_brush(info);
@@ -73,14 +75,6 @@ void	shadow(t_bui_element *elem)
 	{
 		SDL_FillRect(((t_bui_element *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
 		SDL_FillRect(((t_bui_element *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
-		/*
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[0], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[0], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[1], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[1], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[2], &(SDL_Rect) {coord.x + coord.w, coord.y + 5, 5, coord.h}, 0xff9a9a9a);
-		SDL_FillRect(((t_bui_element *)elem->parent)->surface[2], &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
-		*/
 	}
 	else
 	{
@@ -130,15 +124,6 @@ int					fake_main(void)
 	{
 		fps_func(fps);
 		bui_event_handler_new(libui);
-		//bui_render_the_event(libui);
-/*
-		t_list *curr;
-		curr = libui->elements;
-		while (curr)
-		{
-			curr = curr->next;	
-		}
-		*/
 		/*
 		drag_drop(info, libui);
 		update_brush(info);
@@ -153,15 +138,13 @@ int					fake_main(void)
 		preset_slider_events(info->a_slider);
 		preset_slider_events(info->size_slider);
 
-		preset_dropdown_events(info->drop_down);
-		preset_dropdown_events(info->font_down);
-
 		bui_input(info->text_area);
 
 		update_brush(info);
+		update_layers(info);
+		update_hidden_surface(info, libui);
+		draw(libui, info);
 
-		shadow(((t_layer *)info->all_layers->content)->element);
-		shadow(((t_layer *)info->all_layers->content)->button);
 		shadow(info->clear_workspace);
 
 		bui_render_new(libui);

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 12:51:10 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 13:23:49 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 16:37:20 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,28 @@
 
 void	update_layers(t_info *info)
 {
-	int			i;
+	int			i = 0;
 	SDL_Surface *new_surf;
+	t_xywh coord;
+	
+	t_list *curr;
+	
+	coord = info->screen_surface->position;
+	SDL_FillRect(info->screen_surface->active_surface, &(SDL_Rect) {0, 0, coord.w, coord.h}, 0xffffffff);
+	curr = info->all_layers;
+	while (curr)
+	{
+		t_layer *layer = curr->content;
+		coord = layer->drawing->position;
+		SDL_BlitSurface(layer->drawing->active_surface, NULL, info->screen_surface->active_surface, NULL);
+		// TODO: use the aspect ratio thingy.
+		SDL_BlitScaled(layer->drawing->active_surface, NULL, layer->element->active_surface, NULL);
 
+		shadow(layer->button);
+		shadow(layer->element);
+
+		curr = curr->next;
+	}
 	/*
 	i = -1;
 	while (++i < info->layer_amount)

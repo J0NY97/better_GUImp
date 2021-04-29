@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:13:39 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 15:05:48 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/04/29 10:24:14 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,48 @@
 static inline void	tool_buttons(t_info *info)
 {
 	t_xywh coord;
+	info->buttons = NULL;
+	info->active_tool_button = NULL;
 	// Circle
 	coord = ui_init_coords(25, 25, 100, 50);
-	info->buttons[0] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[0], ELEMENT_ALL, info->tooltips.circle);
+	info->pencil_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->pencil_button, ELEMENT_ALL, info->tooltips.circle);
+	add_to_list(&info->buttons, info->pencil_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(150, 25, 100, 50);
-	info->buttons[1] = bui_new_element(info->brush_menu, "Text", coord);
-	bui_set_element_text_font(info->buttons[1], "DroidSans.ttf", 20, info->buttons[1]->text_color);
+	info->text_button = bui_new_element(info->brush_menu, "Text", coord);
+	bui_set_element_text_font(info->text_button, "DroidSans.ttf", 20, info->text_button->text_color);
+	add_to_list(&info->buttons, info->text_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(275, 25, 100, 50);
-	info->buttons[2] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[2], ELEMENT_ALL, info->tooltips.deletion);
+	info->deletion_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->deletion_button, ELEMENT_ALL, info->tooltips.deletion);
+	add_to_list(&info->buttons, info->deletion_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(25, 100, 100, 50);
-	info->buttons[3] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[3], ELEMENT_ALL, info->tooltips.flood);
+	info->flood_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->flood_button, ELEMENT_ALL, info->tooltips.flood);
+	add_to_list(&info->buttons, info->flood_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(150, 100, 100, 50);
-	info->buttons[4] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[4], ELEMENT_ALL, info->tooltips.sticker);
+	info->sticker_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->sticker_button, ELEMENT_ALL, info->tooltips.sticker);
+	add_to_list(&info->buttons, info->sticker_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(275, 100, 100, 50);
-	info->buttons[5] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[5], ELEMENT_ALL, info->tooltips.move);
+	info->move_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->move_button, ELEMENT_ALL, info->tooltips.move);
+	add_to_list(&info->buttons, info->move_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(25, 175, 100, 50);
-	info->buttons[6] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[6], ELEMENT_ALL, info->tooltips.shapes);
+	info->shape_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->shape_button, ELEMENT_ALL, info->tooltips.shapes);
+	add_to_list(&info->buttons, info->shape_button, sizeof(t_bui_element));
 
 	coord = ui_init_coords(150, 175, 100, 50);
-	info->buttons[7] = bui_new_element(info->brush_menu, NULL, coord);
-	bui_set_element_image(info->buttons[7], ELEMENT_ALL, info->tooltips.pipette);
+	info->pipette_button = bui_new_element(info->brush_menu, NULL, coord);
+	bui_set_element_image(info->pipette_button, ELEMENT_ALL, info->tooltips.pipette);
+	add_to_list(&info->buttons, info->pipette_button, sizeof(t_bui_element));
 	/*
 	info->buttons[0] = ui_create_button(info->toolbox->window,
 			ui_init_coords(25, 25, 100, 50), info->brush_menu);

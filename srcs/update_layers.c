@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 12:51:10 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 16:37:20 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 17:09:33 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	update_layers(t_info *info)
 
 		curr = curr->next;
 	}
+
 	/*
 	i = -1;
 	while (++i < info->layer_amount)

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 19:15:07 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 17:07:36 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 12:05:28 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,10 +160,8 @@ void	draw(t_bui_libui *libui, t_info *info)
 	}
 	if (brush->draw && brush->type == 3)
 		pencil(surface, brush, 0x00ffffff);
-	/*
-	else if (brush->draw && brush->type == 6)
-		zoom_and_move(info->screen_surface, event????, info->screen_surface->position.w, info->screen_surface->position.h); 
-		*/
+	else if (brush->type == 6)
+		zoom_and_move(info->screen_surface, libui, brush);
 	else
 		brush->draw == 1 ? activate_draw(surface, brush) : deactivate_draw(surface, brush);
 }

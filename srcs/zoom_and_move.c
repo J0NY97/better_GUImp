@@ -6,43 +6,31 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 14:39:16 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/27 12:49:51 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 13:25:38 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../guimp.h"
 
-void	zoom_and_move(t_bui_element *elem, SDL_Event event, int org_w, int org_h)
+void	zoom_and_move(t_bui_element *elem, t_bui_libui *libui, t_brush *brush)
 {
-	int			w;
-	int			h;
-	t_brush		*brush;
+	t_xywh new_coord;
 	SDL_Surface	*surface;
+	int org_w = elem->position.w;
+	int org_h = elem->position.h;
 
-	if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0)
+	if (mouse_wheel(libui))
 	{
-		brush = malloc(sizeof(t_brush));// TODO: elem->extra_info;
-		brush->zoom += event.wheel.y > 0 ? -10 : 10;
-		h = ((org_w - brush->zoom) / ((float)org_w / (float)org_h));
-		w = (h * ((float)org_w / (float)org_h));
-		surface = create_surface(w, h);
-		SDL_FreeSurface(elem->active_surface);
-
-		elem->position.w = surface->w;
-		elem->position.h = surface->h;
-		/*
-		elem->rel_coord.w = surface->w;
-		elem->rel_coord.h = surface->h;
-		*/
-		elem->active_surface = surface;
+		brush->zoom += libui->mouse_wheel_y * 10;
+		new_coord = elem->position;
+		new_coord.h = ((org_w - (libui->mouse_wheel_y * 10)) / ((float)org_w / (float)org_h));
+		new_coord.w = (new_coord.h * ((float)org_w / (float)org_h));
+		ft_printf("%d %d %d %d\n", new_coord.x, new_coord.y, new_coord.w, new_coord.h);
+		bui_resize_element(elem, new_coord);
 	}
-	else
+	else if (libui->mouse_drag)
 	{
-		elem->position.x = event.button.x - (elem->position.w / 2);
-		elem->position.y = event.button.y - (elem->position.h / 2);
-		/*
-		elem->rel_coord.x = event.button.x - (elem->surface->w / 2);
-		elem->rel_coord.y = event.button.y - (elem->surface->h / 2);
-		*/
+		elem->position.x = libui->mouse_x - (elem->position.w / 2);
+		elem->position.y = libui->mouse_y - (elem->position.h / 2);
 	}
 }

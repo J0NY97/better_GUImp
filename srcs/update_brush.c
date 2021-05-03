@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 11:54:40 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 16:40:31 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 17:04:33 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,25 @@ static inline void	while_loops(t_info *info)
 	// Font Selection Drop Down
 	preset_dropdown_events(info->font_down);
 	if (info->font_down->active)
-			info->brush.font_dir = ft_strjoiner("libui/TTF/", info->font_down->active->text, NULL);
+			info->brush.font_dir = ft_strjoiner("resources/fonts/", info->font_down->active->text, NULL);
 
 	//ft_printf("Active Font : %s.\n", info->brush.font_dir);
 	
 	only_one_button_toggled_at_a_time(info->shapes, &info->active_shape);
 	if (bui_button_toggle(info->orb_shape))
-		info->brush.shape_type = 0;
-	else if (bui_button_toggle(info->square_shape))
 		info->brush.shape_type = 1;
-	else if (bui_button_toggle(info->tube_shape))
+	else if (bui_button_toggle(info->square_shape))
 		info->brush.shape_type = 2;
+	else if (bui_button_toggle(info->tube_shape))
+		info->brush.shape_type = 3;
 	
 	//ft_printf("Active Shape ID : %d.\n", info->brush.shape_type);
 	
 	if (bui_button(info->new_layer_button))
 		layer_create(info, info->layer_menu, &info->all_layers, info->layer_amount++);
+
+	if (bui_button(info->clear_workspace))
+		reset_workspace(info);
 	
 	/*
 	int	i;

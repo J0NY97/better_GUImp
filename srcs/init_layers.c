@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:29:01 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 16:45:57 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 17:00:21 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,22 @@ void	layer_create(t_info *info, t_bui_element *parent, t_list **list, int count)
 	add_to_list(&info->all_layer_buttons, layer->button, sizeof(t_bui_element));
 }
 
+void	layer_free(void *layer, size_t size)
+{
+	t_layer *stander;
+	
+	stander = layer;
+	/*
+	bui_element_free(stander->button, 0);
+	bui_element_free(stander->element, 0);
+	bui_element_free(stander->drawing, 0);
+	*/
+	stander->button->remove = 1;
+	stander->element->remove = 1;
+	stander->drawing->remove = 1;
+	free(stander);
+}
+
 void	reverse_list(t_list **list)
 {
 	t_list *prev = NULL;
@@ -139,7 +155,6 @@ void				layer_init(t_info *info)
 	info->layer_amount = 0;	
 
 	layer_create(info, info->layer_menu, &info->all_layers, info->layer_amount++);
-	t_bui_element *drawing = ((t_layer *)info->all_layers->content)->drawing;
 	info->active_layer = ((t_layer *)info->all_layers->content)->button;
 
 	// Actual Layer Surfaces

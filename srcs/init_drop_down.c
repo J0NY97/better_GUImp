@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 15:42:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 11:45:02 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 10:48:16 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static inline void	drop_down_font(t_info *info)
 	bui_set_element_color(info->font_down->elements->content, 0xff525252);
 	preset_dropdown_add_element(info->font_down, "Pacifico.ttf");
 	bui_set_element_color(info->font_down->elements->content, 0xffa9a9a9);
-	preset_dropdown_add_element(info->font_down, "Tusj.ttf");
-	bui_set_element_color(info->font_down->elements->content, 0xff525252);
 	/*
 	info->font_down = ui_create_drop(info->toolbox->window,
 			coord, info->col_menu);

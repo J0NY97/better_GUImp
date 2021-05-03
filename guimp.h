@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:01:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 17:04:09 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/03 13:47:53 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,13 @@ typedef struct	s_info
 
 	// New
 	int			layer_amount;
-	t_bui_element *active_layer;
+	t_bui_element *active_layer; // the layer->button in t_layer *
 	t_list *all_layer_buttons; // list of t_bui_element *
 	t_list	*all_layers; // list of t_layer *
 }				t_info;
 // New
 void	layer_create(t_info *info, t_bui_element *parent, t_list **list, int count);
+void	layer_free(void *layer, size_t size);
 void	shadow(t_bui_element *elem);
 void	draw(t_bui_libui *libui, t_info *info);
 t_bui_element *get_from_layers_with_id(t_list *list, char *id);
@@ -166,7 +167,7 @@ void			draw_old(SDL_Event event, t_bui_element *elem);
 void			text_to_screen(SDL_Surface *surface,
 					t_shapes l, char *str, char *font_dir);
 void			zoom_and_move(t_bui_element *elem,
-					SDL_Event event, int org_w, int org_h);
+					t_bui_libui *libui, t_brush *brush);
 void			trace_shape(t_info *info);
 void			select_shape(SDL_Surface *surf, t_brush *brush);
 void			shape_buttons_init(t_info *info);
@@ -185,7 +186,7 @@ void			ft_toggle_elem_group(SDL_Event e, t_bui_element *elem);
 void			utility_init(t_info *info);
 void			save_img(SDL_Event e, t_bui_element *elem);
 void			add_new_layer_event(SDL_Event e, t_bui_element *elem);
-void			reset_workspace(SDL_Event e, t_bui_element *elem);
+void			reset_workspace(t_info *info);
 void			open_button(SDL_Event e, t_bui_element *elem);
 void			init_brush(t_info *info);
 void			update_hidden_surface(t_info *info, t_bui_libui *libui);

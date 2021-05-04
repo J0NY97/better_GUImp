@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 14:39:16 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/04 16:36:26 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:37:18 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	zoom_and_move(t_bui_element *elem, t_bui_libui *libui, t_brush *brush)
 	t_xywh		new_coord;
 	SDL_Surface	*surface;
 
-	org_w = elem->position.h;
-	org_h = elem->position.w;
+	org_w = elem->position.w;
+	org_h = elem->position.h;
 	if (mouse_wheel(libui))
 	{
 		new_coord = elem->position;

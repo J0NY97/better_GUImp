@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 16:01:05 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 13:47:53 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 14:19:06 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct	s_info
 	t_bui_element	*text_area;
 	t_bui_element	*save_button;
 	t_bui_element	*new_layer_button;
+	t_bui_element	*remove_layer_button;
 	t_bui_element	*clear_workspace;
 	t_bui_element	*open_file;
 	t_bui_element	*font_button;
@@ -159,6 +160,7 @@ void	reverse_list(t_list **list);
 Uint32	get_color(SDL_Surface *surface, int x, int y);
 void	flood_fill(SDL_Surface *surface, Uint32 targetColor, Uint32 replaceColor, int x, int y);
 void	ft_create_square(SDL_Surface *surface, Uint32 color, t_shapes l);
+void	save_image(SDL_Surface *img, char *file);
 //
 
 int				load_font(char *file, TTF_Font *font);

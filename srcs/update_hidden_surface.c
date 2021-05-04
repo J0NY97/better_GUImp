@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 10:40:35 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/29 17:08:20 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:02:16 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static inline void	blit_tooltip2(t_info *info, t_shapes l)
 
 	if (info->brush.type == 5)
 	{
-		temp = (SDL_Rect) {l.x1 - 128 / 2, l.y1 - 128 / 2, 128, 128};
-		SDL_BlitSurface(info->brush.stickers[info->brush.selected_sticker],
+		temp = (SDL_Rect) {l.x1 - l.size / 2, l.y1 - l.size / 2, l.size, l.size};
+		SDL_BlitScaled(info->brush.stickers[info->brush.selected_sticker],
 				NULL, info->hidden_surface->active_surface, &temp);
 	}
 	else if (info->brush.type == 6)

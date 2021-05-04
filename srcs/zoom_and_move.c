@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 14:39:16 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 13:25:38 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 11:46:32 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	zoom_and_move(t_bui_element *elem, t_bui_libui *libui, t_brush *brush)
 
 	if (mouse_wheel(libui))
 	{
-		brush->zoom += libui->mouse_wheel_y * 10;
 		new_coord = elem->position;
 		new_coord.h = ((org_w - (libui->mouse_wheel_y * 10)) / ((float)org_w / (float)org_h));
 		new_coord.w = (new_coord.h * ((float)org_w / (float)org_h));
-		ft_printf("%d %d %d %d\n", new_coord.x, new_coord.y, new_coord.w, new_coord.h);
-		bui_resize_element(elem, new_coord);
+		if (new_coord.h > 10 && new_coord.w > 10)
+		{
+			brush->zoom += libui->mouse_wheel_y * 10;
+			bui_resize_element(elem, new_coord);
+		}
 	}
 	else if (libui->mouse_drag)
 	{

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 12:51:10 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 17:09:33 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 11:42:41 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	update_layers(t_info *info)
 	{
 		t_layer *layer = curr->content;
 		coord = layer->drawing->position;
-		SDL_BlitSurface(layer->drawing->active_surface, NULL, info->screen_surface->active_surface, NULL);
+		SDL_BlitScaled(layer->drawing->active_surface, NULL, info->screen_surface->active_surface, NULL);
 		// TODO: use the aspect ratio thingy.
 		SDL_BlitScaled(layer->drawing->active_surface, NULL, layer->element->active_surface, NULL);
 

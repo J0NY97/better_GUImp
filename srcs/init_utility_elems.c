@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:51:33 by nneronin          #+#    #+#             */
-/*   Updated: 2021/04/28 13:24:46 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 12:48:11 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ static inline void	new_layer_button(t_info *info, t_bui_element *menu)
 	info->new_layer_button->extra_info = &info->layer_amount;
 	*/
 }
+
+static inline void	remove_layer_button(t_info *info, t_bui_element *menu)
+{
+	t_xywh		coord;
+
+	coord = ui_init_coords(275, 25, 100, 50);
+	info->remove_layer_button = bui_new_element(menu, "Remove Layer", coord);
+	bui_set_element_color(info->remove_layer_button, 0xffffffff);
+	bui_set_element_text_font(info->remove_layer_button, "DroidSans.ttf", 20, 0xff000000);
+}
+
 
 static inline void	text_input_area(t_info *info)
 {
@@ -116,10 +127,11 @@ void				utility_init(t_info *info)
 	clear_workspace_button(info);
 	open_file_button(info);
 
-	coord = ui_init_coords(25, info->toolbox->position.h - 125, 275, 100);
+	coord = ui_init_coords(25, info->toolbox->position.h - 125, 400, 100);
 	info->utility_menu = bui_new_menu(info->toolbox, "Utility", coord);
 	save_button(info, info->utility_menu);
 	new_layer_button(info, info->utility_menu);
+	remove_layer_button(info, info->utility_menu);
 	/*
 	t_bui_element	*menu;
 

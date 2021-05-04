@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 13:07:25 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 17:04:46 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 15:13:33 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,9 @@ int					fake_main(void)
 		update_layers(info);
 		update_hidden_surface(info, libui);
 		draw(libui, info);
+
+		if (bui_button(info->save_button))
+			save_image(info->screen_surface->active_surface, "test");
 
 		shadow(info->clear_workspace);
 

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 16:29:01 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 17:00:21 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 13:52:27 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	layer_create(t_info *info, t_bui_element *parent, t_list **list, int count)
 	SDL_FillRect(layer->drawing->active_surface,
 			&(SDL_Rect) {0, 0, layer->drawing->position.w, layer->drawing->position.h}, 0x00ffffff);
 	layer->drawing->update = 0;
+	layer->drawing->show = 0;
 
 
 	char *id = ft_sprintf("layer%d", count);
@@ -101,11 +102,6 @@ void	layer_free(void *layer, size_t size)
 	t_layer *stander;
 	
 	stander = layer;
-	/*
-	bui_element_free(stander->button, 0);
-	bui_element_free(stander->element, 0);
-	bui_element_free(stander->drawing, 0);
-	*/
 	stander->button->remove = 1;
 	stander->element->remove = 1;
 	stander->drawing->remove = 1;

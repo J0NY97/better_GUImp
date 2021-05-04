@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/27 11:54:40 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 17:04:33 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 14:20:12 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,53 @@ static inline void	color_combine(t_info *info)
 	info->brush.shape.color = info->brush.color;
 	*/
 }
+
+void	remove_from_list_if(t_list **list, int (*f)(void *))
+{
+	t_list *curr;
+	t_list *prev;
+
+	curr = *list;
+	if (curr && f(curr->content))
+	{
+		*list = curr->next;	
+		ft_lstdelone(&curr, &dummy_free_er);
+		curr = *list;
+	}
+	while (curr)
+	{
+		if (f(curr->content))
+		{
+			prev->next = curr->next;
+			ft_lstdelone(&curr, &dummy_free_er);	
+		}
+		else
+			prev = curr;
+		curr = prev->next;	
+	}
+	return ;
+}
+
+int	layer_is_remove(void *layer)
+{
+	t_layer *stander;
+	
+	stander = layer;
+	if (stander->button->remove)
+		return (1);
+	return (0);
+}
+
+int	layer_button_is_remove(void *layer)
+{
+	t_bui_element *stander;
+
+	stander = layer;
+	if (stander->remove)
+		return (1);
+	return (0);
+}
+
 
 static inline void	while_loops(t_info *info)
 {
@@ -105,6 +152,33 @@ static inline void	while_loops(t_info *info)
 	
 	if (bui_button(info->new_layer_button))
 		layer_create(info, info->layer_menu, &info->all_layers, info->layer_amount++);
+
+	if (bui_button(info->remove_layer_button))
+	{
+		if (info->layer_amount > 1)
+		{
+			info->active_layer->remove = 1;
+			info->layer_amount--;
+			// here we search for the t_layer with a button that has remove set to 1
+			remove_from_list_if(&info->all_layers, &layer_is_remove);
+			ft_putstr("Layer successfully removed from layers list.\n");
+			remove_from_list_if(&info->all_layer_buttons, &layer_button_is_remove);
+			ft_putstr("Layer Button successfully removed from layers button.\n");
+			info->active_layer = ((t_layer *)info->all_layers->content)->button;
+
+			// Here we put everything on their right places y wise.
+			t_list *curr;
+			int r = info->layer_amount - 1;
+
+			curr = info->all_layers;
+			while (curr)
+			{
+				((t_layer *)curr->content)->button->position.y = r * 200 + (r * 25) + 25;
+				r--;
+				curr = curr->next;
+			}
+		}
+	}
 
 	if (bui_button(info->clear_workspace))
 		reset_workspace(info);

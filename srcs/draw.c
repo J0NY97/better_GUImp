@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/20 19:15:07 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/03 12:05:28 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/04 16:01:17 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static inline void	set_sticker(SDL_Surface *surf, t_brush *brush)
 {
 	SDL_Rect temp;
 
-	temp.h = 0;
-	temp.w = 0;
+	temp.h = brush->shape.size;
+	temp.w = brush->shape.size;
 	temp.x = brush->shape.x1 -
-		(brush->stickers[brush->selected_sticker]->w / 2);
+		(temp.w / 2);
 	temp.y = brush->shape.y1 -
-		(brush->stickers[brush->selected_sticker]->h / 2);
-	SDL_BlitSurface(brush->stickers[brush->selected_sticker],
+		(temp.h / 2);
+	SDL_BlitScaled(brush->stickers[brush->selected_sticker],
 			NULL, surf, &temp);
 }
 

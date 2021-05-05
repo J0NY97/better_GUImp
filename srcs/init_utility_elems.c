@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 17:51:33 by nneronin          #+#    #+#             */
-/*   Updated: 2021/05/04 12:48:11 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/05/05 13:08:52 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static inline void	text_input_area(t_info *info)
 
 	coord = ui_init_coords(40, 900, 400, 50);
 	info->text_area = bui_new_menu(info->toolbox, "Print Text", coord);
+	info->text_area->update_state = 1;
 	bui_set_element_color(info->text_area, 0xffffffff);
 	bui_set_element_text_font(info->text_area, "DroidSans.ttf", 20, 0xff000000);
 	/*
@@ -86,6 +87,7 @@ static inline void	clear_workspace_button(t_info *info)
 
 	coord = ui_init_coords(40, 975, 100, 50);
 	info->clear_workspace = bui_new_menu(info->toolbox, "Clear", coord);
+	info->clear_workspace->update_state = 1;
 	bui_set_element_color(info->clear_workspace, 0xffffffff);
 	bui_set_element_text_font(info->clear_workspace, "DroidSans.ttf", 20, 0xff000000);
 	/*
@@ -105,6 +107,7 @@ static inline void	open_file_button(t_info *info)
 
 	coord = ui_init_coords(165, 975, 100, 50);
 	info->open_file = bui_new_menu(info->toolbox, "Open", coord);
+	info->open_file->update_state = 1;
 	bui_set_element_color(info->open_file, 0xffffffff);
 	bui_set_element_text_font(info->open_file, "DroidSans.ttf", 20, 0xff000000);
 	/*

@@ -3,4 +3,7 @@
 	url = https://github.com/J0NY97/libft.git
 [submodule "ft_printf"]
 	path = ft_printf
-	url = https://github.com/J0NY97/ft_printf_minimal.git
+	url = https://github.com/J0NY97/ft_printf-windows.git
+[submodule "better_libui"]
+	path = better_libui
+	url = https://github.com/J0NY97/better_libui.git

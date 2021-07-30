@@ -16,7 +16,7 @@ static inline void	layers(t_info *info)
 {
 	t_xywh coord;
 
-	coord = ui_init_coords(50, 50, 400, 1150);
+	coord = new_xywh(50, 50, 400, 1150);
 	info->layer_menu = bui_new_menu(info->layers, "Layers", coord);
 	bui_set_element_color(info->layer_menu, 0xffa9a9a9);
 	/*
@@ -33,7 +33,7 @@ static inline void	shapes_modifier(t_info *info)
 {
 	t_xywh coord;
 
-	coord = ui_init_coords(40, 710, 400, 100);
+	coord = new_xywh(40, 710, 400, 100);
 	info->shape_menu = bui_new_menu(info->toolbox, "Shapes Modifier", coord);
 	bui_set_element_color(info->shape_menu, 0xffa9a9a9);
 	/*
@@ -50,7 +50,7 @@ static inline void	brush_modifier(t_info *info)
 {
 	t_xywh coord;
 
-	coord = ui_init_coords(40, 305, 400, 380);
+	coord = new_xywh(40, 305, 400, 380);
 	info->col_menu = bui_new_menu(info->toolbox, "Brush Modifiers", coord);
 	bui_set_element_color(info->col_menu, 0xffa9a9a9);
 	/*
@@ -66,7 +66,7 @@ static inline void	brush_button(t_info *info)
 {
 	t_xywh coord;
 
-	coord = ui_init_coords(40, 25, 400, 255);
+	coord = new_xywh(40, 25, 400, 255);
 	info->brush_menu = bui_new_menu(info->toolbox, "Brush Buttons", coord);
 	bui_set_element_color(info->brush_menu, 0xffa9a9a9);
 	/*

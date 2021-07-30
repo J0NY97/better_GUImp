@@ -14,12 +14,12 @@
 # define GUIMP_H
 # include <stdio.h>
 # include <math.h>
-# include "./libft/libft.h"
-# include "./better_libui/better_libui.h"
-# include "./ft_printf/ft_printf.h"
-# include "../include/SDL.h"
-# include "../include/SDL_ttf.h"
-# include "../include/SDL_image.h"
+# include "libft.h"
+# include "better_libui.h"
+# include "libpf.h"
+# include "SDL.h"
+# include "SDL_ttf.h"
+# include "SDL_image.h"
 
 # define POS(n)			((n) < 0 ? 0 - (n) : (n))
 # define LAYER_NBR		5

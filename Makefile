@@ -30,18 +30,18 @@ SRC	=	main.c \
 
 SRCS = $(addprefix $(DIR_S)/,$(SRC))
 OBJS = $(SRCS:.c=.o)
-INCLUDES = -I./libft -L./libft \
-		   -I./better_libui -L./better_libui \
-		   -I./ft_printf -L./ft_printf \
+INCLUDES = -I./libs/libft -L./libs/libft \
+		   -I./libs/better_libui -L./libs/better_libui \
+		   -I./libs/libpf -L./libs/libpf \
 		   -I$(INC)
-LIBS = libft/libft.a ft_printf/libprintf.a better_libui/better_libui.a
+LIBS = -lui -lpf -lft 
 FLAGS = -Wall -Wextra -Werror
-SDL = -I../include -L../lib -lSDL2 -lSDL2_ttf -lSDL2_image
+SDL = -I./libs/SDL/include -L./libs/SDL/lib -lSDL2 -lSDL2_ttf -lSDL2_image
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@gcc -o $(NAME) $(OBJS) $(INCLUDES) $(LIBS) $(SDL)
+$(NAME): $(SRCS)
+	@gcc -o $(NAME) $(SRCS) $(INCLUDES) $(LIBS) $(SDL)
 	@echo "$(NAME) was successfully created."
 
 clean:

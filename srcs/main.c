@@ -82,38 +82,12 @@ void	shadow(t_bui_element *elem)
 		SDL_FillRect(((t_bui_window *)elem->parent)->active_surface, &(SDL_Rect) {coord.x + 5, coord.y + coord.h, coord.w, 5}, 0xff9a9a9a);
 	}
 }
-typedef	struct		s_fps
-{
-	float		curr;
-	float		prev;
-	float		avg;
-	int		fps;
-	int		count;
-	// Delta
-	float		delta_curr;
-	float		delta_last;
-	float		delta;
-}					t_fps;
-
-void	fps_func(t_fps *fps)
-{
-	fps->curr = SDL_GetTicks();
-	fps->count++;
-	if (fps->curr - fps->prev >= 1000)
-	{
-		fps->prev = fps->curr;
-		fps->fps = fps->count;
-		fps->count = 0;
-		ft_putnbr(fps->fps);
-		ft_putchar('\n');
-	}
-}
 
 int					fake_main(void)
 {
 	t_info		*info;
 	t_bui_libui	*libui;
-	t_fps *fps = malloc(sizeof(t_fps));
+	t_bui_fps *fps = malloc(sizeof(t_bui_fps));
 
 	if (!(info = (t_info *)malloc(sizeof(t_info))))
 		return (0);
@@ -123,8 +97,8 @@ int					fake_main(void)
 	while (libui->run)
 	{
 		SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
-		fps_func(fps);
-		bui_event_handler_new(libui);
+		bui_fps_func(fps);
+		bui_event_handler(libui);
 		/*
 		drag_drop(info, libui);
 		update_brush(info);
@@ -151,7 +125,7 @@ int					fake_main(void)
 
 		shadow(info->clear_workspace);
 
-		bui_render_new(libui);
+		bui_render(libui);
 	}
 	//guimp_quit(info);
 	//bui_libui_quit(libui);

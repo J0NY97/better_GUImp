@@ -1,0 +1,62 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/17 15:28:58 by jsalmi            #+#    #+#              #
+#    Updated: 2021/07/29 13:22:04 by jsalmi           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = libgfx.a
+SRCS = gfx_new_vector.c \
+	gfx_draw_vector.c \
+	gfx_draw_line.c \
+	gfx_vector_dot.c \
+	gfx_vector_string.c \
+	gfx_draw_rect.c \
+	gfx_distance.c \
+	gfx_hitbox_square.c \
+	gfx_vector_multiply.c \
+	gfx_vector_divide.c \
+	gfx_vector_add.c \
+	gfx_vector_sub.c \
+	gfx_vector_copy.c \
+	ft_create_circle.c \
+	ft_create_line.c
+
+OBJS = $(SRCS:.c=.o)
+LIBS = libgfx.h
+FLAGS = -Wall -Wextra -Werror
+
+all: $(NAME)
+
+SDL_DIR		:= ../SDL_Frameworks
+SDL_MAIN	:= -I $(SDL_DIR)/SDL2.framework/Headers -F $(SDL_DIR)
+SDL_IMAGE	:= -I $(SDL_DIR)/SDL2_image.framework/Headers -F $(SDL_DIR)
+SDL_TTF		:= -I $(SDL_DIR)/SDL2_ttf.framework/Headers -F $(SDL_DIR)
+
+$(NAME): $(SRCS)
+	@gcc -c $(SRCS) $(FLAGS) \
+		-I../better_libui \
+		-I../libft \
+		-I../libpf \
+		$(SDL_MAIN) $(SDL_IMAGE) $(SDL_TTF)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
+	@rm -f $(OBJS)
+	@echo "$(NAME) was successfully created."
+
+clean:
+	@rm -f $(OBJS)
+	@echo "$(NAME) was cleaned."
+
+fclean: clean
+	@rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: clean, all, fclean, re
+

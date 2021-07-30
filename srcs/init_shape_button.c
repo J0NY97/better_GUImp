@@ -15,9 +15,9 @@
 static inline void	orb(t_info *info)
 {
 	t_xywh coord;
-	int minim = min(100, 50); // aka w and h for the element
+	int minim = ft_min(100, 50); // aka w and h for the element
 
-	coord = ui_init_coords(25, 25, 100, 50);
+	coord = new_xywh(25, 25, 100, 50);
 	info->orb_shape = bui_new_element(info->shape_menu, NULL, coord);
 	bui_set_element_image(info->orb_shape, ELEMENT_ALL, info->shape_img.orb, &(t_xywh){coord.w / 2 - minim / 2, 0, minim, minim});
 	add_to_list(&info->shapes, info->orb_shape, sizeof(t_bui_element));
@@ -26,9 +26,9 @@ static inline void	orb(t_info *info)
 static inline void	square(t_info *info)
 {
 	t_xywh coord;
-	int minim = min(100, 50); // aka w and h for the element
+	int minim = ft_min(100, 50); // aka w and h for the element
 
-	coord = ui_init_coords(150, 25, 100, 50);
+	coord = new_xywh(150, 25, 100, 50);
 	info->square_shape = bui_new_element(info->shape_menu, NULL, coord);
 	bui_set_element_image(info->square_shape, ELEMENT_ALL, info->shape_img.square, &(t_xywh){coord.w / 2 - minim / 2, 0, minim, minim});
 	add_to_list(&info->shapes, info->square_shape, sizeof(t_bui_element));
@@ -37,9 +37,9 @@ static inline void	square(t_info *info)
 static inline void	tube(t_info *info)
 {
 	t_xywh coord;
-	int minim = min(100, 50); // aka w and h for the element
+	int minim = ft_min(100, 50); // aka w and h for the element
 
-	coord = ui_init_coords(275, 25, 100, 50);
+	coord = new_xywh(275, 25, 100, 50);
 	info->tube_shape = bui_new_element(info->shape_menu, NULL, coord);
 	bui_set_element_image(info->tube_shape, ELEMENT_ALL, info->shape_img.tube, &(t_xywh){coord.w / 2 - minim / 2, 0, minim, minim});
 	add_to_list(&info->shapes, info->tube_shape, sizeof(t_bui_element));

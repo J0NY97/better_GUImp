@@ -16,7 +16,7 @@ static inline void	drop_down_font(t_info *info)
 {
 	t_xywh			coord;
 
-	coord = ui_init_coords(212, 200, 162, 32);
+	coord = new_xywh(212, 200, 162, 32);
 	info->font_down = bui_new_dropdown_preset(info->col_menu, "Font select", coord);
 	bui_set_element_color(info->font_down->drop, 0xffffffff);
 	bui_set_element_color(info->font_down->arrow, 0xffffffff);
@@ -54,24 +54,24 @@ static inline void	drop_down_sticker(t_info *info)
 	SDL_Rect		temp;
 	SDL_Surface		*icon;
 
-	coord = ui_init_coords(25, 200, 162, 32);
+	coord = new_xywh(25, 200, 162, 32);
 	info->drop_down = bui_new_dropdown_preset(info->col_menu, "Sticker Select", coord);
 	bui_set_element_color(info->drop_down->drop, 0xffffffff);
 	bui_set_element_color(info->drop_down->arrow, 0xffffffff);
 
 
 	preset_dropdown_add_element(info->drop_down, "Minion");
-	bui_set_element_id(info->drop_down->elements->content, "sticker0");
+	bui_element_set_id(info->drop_down->elements->content, "sticker0");
 	bui_set_element_color(info->drop_down->elements->content, 0xffffffff);
 	bui_set_element_image(info->drop_down->elements->content, ELEMENT_ALL, info->brush.stickers[0], NULL);
 
 	preset_dropdown_add_element(info->drop_down, "Guimp-icon");
-	bui_set_element_id(info->drop_down->elements->content, "sticker1");
+	bui_element_set_id(info->drop_down->elements->content, "sticker1");
 	bui_set_element_color(info->drop_down->elements->content, 0xffffffff);
 	bui_set_element_image(info->drop_down->elements->content, ELEMENT_ALL, info->brush.stickers[1], NULL);
 	/*
 	temp = ft_sdl_rect(32, 32, 150 - 32, 0);
-	coord = ui_init_coords(25, 200, 162, 32);
+	coord = new_xywh(25, 200, 162, 32);
 	info->drop_down = ui_create_drop(info->toolbox->window,
 			coord, info->col_menu);
 	ft_set_text(&info->drop_down->text, "Sticker select");

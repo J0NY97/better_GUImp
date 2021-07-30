@@ -29,7 +29,7 @@ void	zoom_and_move(t_bui_element *elem, t_bui_libui *libui, t_brush *brush)
 		if (new_coord.h > 10 && new_coord.w > 10)
 		{
 			brush->zoom += libui->mouse_wheel_y * 10;
-			bui_resize_element(elem, new_coord);
+			bui_element_resize(elem, new_coord);
 		}
 	}
 	else if (libui->mouse_drag)

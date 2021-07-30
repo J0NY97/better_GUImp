@@ -65,7 +65,7 @@ void	flood_fill(SDL_Surface *surface, Uint32 targetColor, Uint32 replaceColor, i
 
 	if (targetColor == replaceColor)
 		return;
-	coord = ui_init_coords(x, y, 0, 0);
+	coord = new_xywh(x, y, 0, 0);
 	push_list(&pix, &coord, sizeof(t_coords));
 	while (iter != 0 && (content = pop_list(&pix)) != NULL)
 	{
@@ -82,7 +82,7 @@ void	flood_fill(SDL_Surface *surface, Uint32 targetColor, Uint32 replaceColor, i
 			set_pixel(surface, ix, iy, replaceColor);
 			if(spanAbove == 0 && iy > 0 && get_color(surface, ix, iy - 1) == targetColor)
 			{
-				coord = ui_init_coords(ix, iy - 1, 0, 0);
+				coord = new_xywh(ix, iy - 1, 0, 0);
 				push_list(&pix, &coord, sizeof(t_xywh));
 				iter++;
 	            spanAbove = 1;
@@ -91,7 +91,7 @@ void	flood_fill(SDL_Surface *surface, Uint32 targetColor, Uint32 replaceColor, i
 				spanAbove = 0;
 			if (spanBelow == 0 && iy < surface->h - 1 && get_color(surface, ix, iy + 1) == targetColor)
 			{
-				coord = ui_init_coords(ix, iy + 1, 0, 0);
+				coord = new_xywh(ix, iy + 1, 0, 0);
 				push_list(&pix, &coord, sizeof(t_xywh));
 				iter++;
 	            spanBelow = 1;

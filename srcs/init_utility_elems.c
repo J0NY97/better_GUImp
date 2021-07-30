@@ -16,12 +16,12 @@ static inline void	save_button(t_info *info, t_bui_element *menu)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(25, 25, 100, 50);
+	coord = new_xywh(25, 25, 100, 50);
 	info->save_button = bui_new_element(menu, "Save", coord);
 	bui_set_element_color(info->save_button, 0xffffffff);
 	bui_set_element_text_font(info->save_button, "DroidSans.ttf", 20, 0xff000000);
 	/*
-	coord = ui_init_coords(25, 25, 100, 50);
+	coord = new_xywh(25, 25, 100, 50);
 	info->save_button = ui_create_button(info->toolbox->window,
 			coord, menu);
 	ft_set_text(&info->save_button->text, "Save");
@@ -35,12 +35,12 @@ static inline void	new_layer_button(t_info *info, t_bui_element *menu)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(150, 25, 100, 50);
+	coord = new_xywh(150, 25, 100, 50);
 	info->new_layer_button = bui_new_element(menu, "New Layer", coord);
 	bui_set_element_color(info->new_layer_button, 0xffffffff);
 	bui_set_element_text_font(info->new_layer_button, "DroidSans.ttf", 20, 0xff000000);
 	/*
-	coord = ui_init_coords(150, 25, 100, 50);
+	coord = new_xywh(150, 25, 100, 50);
 	info->new_layer_button = ui_create_button(info->toolbox->window,
 			coord, menu);
 	ft_set_text(&info->new_layer_button->text, "New layer");
@@ -54,7 +54,7 @@ static inline void	remove_layer_button(t_info *info, t_bui_element *menu)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(275, 25, 100, 50);
+	coord = new_xywh(275, 25, 100, 50);
 	info->remove_layer_button = bui_new_element(menu, "Remove Layer", coord);
 	bui_set_element_color(info->remove_layer_button, 0xffffffff);
 	bui_set_element_text_font(info->remove_layer_button, "DroidSans.ttf", 20, 0xff000000);
@@ -65,13 +65,13 @@ static inline void	text_input_area(t_info *info)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(40, 900, 400, 50);
+	coord = new_xywh(40, 900, 400, 50);
 	info->text_area = bui_new_menu(info->toolbox, "Print Text", coord);
 	info->text_area->update_state = 1;
 	bui_set_element_color(info->text_area, 0xffffffff);
 	bui_set_element_text_font(info->text_area, "DroidSans.ttf", 20, 0xff000000);
 	/*
-	coord = ui_init_coords(40, 900, 400, 50);
+	coord = new_xywh(40, 900, 400, 50);
 	info->text_area = ui_create_button(info->toolbox->window,
 			coord, NULL);
 	ft_set_text(&info->text_area->text, "Print Text");
@@ -85,13 +85,13 @@ static inline void	clear_workspace_button(t_info *info)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(40, 975, 100, 50);
+	coord = new_xywh(40, 975, 100, 50);
 	info->clear_workspace = bui_new_menu(info->toolbox, "Clear", coord);
 	info->clear_workspace->update_state = 1;
 	bui_set_element_color(info->clear_workspace, 0xffffffff);
 	bui_set_element_text_font(info->clear_workspace, "DroidSans.ttf", 20, 0xff000000);
 	/*
-	coord = ui_init_coords(40, 975, 100, 50);
+	coord = new_xywh(40, 975, 100, 50);
 	info->clear_workspace = ui_create_button(info->toolbox->window,
 			coord, NULL);
 	ft_set_text(&info->clear_workspace->text, "Clear");
@@ -105,13 +105,13 @@ static inline void	open_file_button(t_info *info)
 {
 	t_xywh		coord;
 
-	coord = ui_init_coords(165, 975, 100, 50);
+	coord = new_xywh(165, 975, 100, 50);
 	info->open_file = bui_new_menu(info->toolbox, "Open", coord);
 	info->open_file->update_state = 1;
 	bui_set_element_color(info->open_file, 0xffffffff);
 	bui_set_element_text_font(info->open_file, "DroidSans.ttf", 20, 0xff000000);
 	/*
-	coord = ui_init_coords(165, 975, 100, 50);
+	coord = new_xywh(165, 975, 100, 50);
 	info->clear_workspace = ui_create_button(info->toolbox->window,
 			coord, NULL);
 	ft_set_text(&info->clear_workspace->text, "Open");
@@ -130,7 +130,7 @@ void				utility_init(t_info *info)
 	clear_workspace_button(info);
 	open_file_button(info);
 
-	coord = ui_init_coords(25, info->toolbox->position.h - 125, 400, 100);
+	coord = new_xywh(25, info->toolbox->position.h - 125, 400, 100);
 	info->utility_menu = bui_new_menu(info->toolbox, "Utility", coord);
 	save_button(info, info->utility_menu);
 	new_layer_button(info, info->utility_menu);
@@ -138,7 +138,7 @@ void				utility_init(t_info *info)
 	/*
 	t_bui_element	*menu;
 
-	coord = ui_init_coords(25,
+	coord = new_xywh(25,
 			info->toolbox->window->surface->h - 125, 275, 100);
 	menu = ui_create_surface(info->toolbox->window, coord, NULL);
 	ft_update_elem_background(menu, 0xffa9a9a9);

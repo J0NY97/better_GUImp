@@ -23,6 +23,7 @@ SRCS = \
        ./bui_input.c \
        ./bui_image.c \
        ./bui_set.c \
+       ./bui_set2.c \
        ./bui_get.c \
        ./bui_print.c \
        ./bui_edit.c \

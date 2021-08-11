@@ -36,7 +36,14 @@ INCLUDES = -I./libs/libft -L./libs/libft \
 		   -I$(INC)
 LIBS = -lui -lpf -lft 
 FLAGS = -Wall -Wextra -Werror
+
 SDL = -I./libs/SDL/include -L./libs/SDL/lib -lSDL2 -lSDL2_ttf -lSDL2_image
+
+#SDL_DIR		:= ./libs/SDL_Frameworks
+#SDL_MAIN	:= -I $(SDL_DIR)/SDL2.framework/Headers -framework SDL2 -F $(SDL_DIR)
+#SDL_IMAGE	:= -I $(SDL_DIR)/SDL2_image.framework/Headers -framework SDL2_image -F $(SDL_DIR)
+#SDL_TTF		:= -I $(SDL_DIR)/SDL2_ttf.framework/Headers -framework SDL2_ttf -F $(SDL_DIR)
+#SDL = $(SDL_MAIN) $(SDL_IMAGE) $(SDL_TTF)
 
 all: $(NAME)
 
